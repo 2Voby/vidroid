@@ -478,7 +478,7 @@ function gamePageNavigation() {
         let keyItem = document.createElement("div");
         keyItem.classList.add("key-img");
         let keyItemImg = document.createElement("img");
-        keyItemImg.setAttribute("src", "vidroid/img/key.svg");
+        keyItemImg.setAttribute("src", "img/key.svg");
         keyItem.appendChild(keyItemImg);
         thisItem.appendChild(keyItem);
         thisItem.classList.add("filled");
