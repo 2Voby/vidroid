@@ -146,7 +146,7 @@ let data = {
     { task: ["2+1*2"], answers: [2, 10, 8, 4], rightAnswer: "4" },
     { task: ["2+1*2"], answers: [2, 10, 8, 4], rightAnswer: "4" },
     { task: ["2+1*2"], answers: [2, 10, 8, 4], rightAnswer: "4" },
-    { task: ["2+1*2"], answers: [2, 10, 8, 4], rightAnswer: "4" },
+    { task: ["2+1*2"], answers: [2, 16, 8, 4], rightAnswer: "4" },
   ],
   hard: [
     { task: ["2+2*2"], answers: [2, 10, 8, 6], rightAnswer: "6" },
@@ -245,6 +245,7 @@ function gamePageNavigation() {
     }
   });
 
+  // start game button
   startGameButton.addEventListener("click", startGame);
 
   // open/scose map in game
@@ -274,13 +275,14 @@ function gamePageNavigation() {
         }
       });
     });
-
+    
     function clearAllChoosedComplexity() {
       complexityButtons.forEach((item) => {
         item.classList.remove("active");
       });
     }
   }
+  // get current game settings
   function getSettings() {
     let hardSettingsItems = document.querySelectorAll(".hard-block__button");
     let complexity;
@@ -488,7 +490,7 @@ function gamePageNavigation() {
 
     checkWin();
   }
-
+  
   function checkWin() {
     if (keysNumber >= 4 && personProgress >= 14) {
       // animation of win
@@ -617,6 +619,7 @@ function closeLevelPopup() {
     gameLevelPopup.classList.add("game-level__popup-hidden");
   }
 }
+// open popup that you've won that game
 function openWinGamePopup() {
   let gameLevelPopup = document.querySelector(".game-level__popup-wrapper");
   let gameLevelPopupBody = document.querySelector(".game-level__popup");
@@ -729,7 +732,7 @@ document.addEventListener("click", (event) => {
 // changing track on screen changing
 
 let isVolumeInputGot = false;
-
+// when player has changed a location
 window.addEventListener("hashchange", function (e) {
   if (location.hash == "#mainscreen") {
     menuMusic.play();
@@ -758,13 +761,6 @@ function getVolumeInput() {
 
 // canvas
 
-// const levels = document.querySelectorAll("[lvl]");
-// const canvas = document.querySelector("canvas");
-// const ctx = canvas.getContext("2d");
-
-// ctx.strokeStyle = "white";
-// ctx.lineWidth = 1;
-
 // const canvasX = canvas.getBoundingClientRect().x;
 // const canvasY = canvas.getBoundingClientRect().y;
 
@@ -777,18 +773,6 @@ function getVolumeInput() {
 //   ctx.beginPath();
 //   ctx.moveTo(x, y);
 
-//   const nextLevel = levels[levelIndex + 1];
-//   if (nextLevel) {
-//     const nextX = nextLevel.getBoundingClientRect().x - canvasX;
-//     const nextY = (nextLevel.getBoundingClientRect().y - canvasY) / 2 - 70;
-//     ctx.lineTo(nextX, nextY);
-//     ctx.stroke();
-//   }
-// }
-
-// console.log(data.easy[2].task);
-// let personProgress = 1;
-// let levelsArr = flsSetLvl.setLvl();
 // flsLevelsControll.lockLvl(personProgress);
 // flsLevelsControll.unlockLvl(personProgress, levelsArr.FirstLvl);
 // personProgress = flsLevelsControll.clickLvl(personProgress, data, levelsArr);
