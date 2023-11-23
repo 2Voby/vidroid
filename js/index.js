@@ -122,7 +122,7 @@ let data = {
     {
       task: ["Якої форми планета Земля?"],
       image: "img/zemlya.jpg",
-      answers: ["Паралелепіпед", "Кругла", "Плоска", "Тетрадер"],
+      answers: ["Паралелепіпед", "Кругла", "Проска", "Тетрадер"],
       rightAnswer: "Кругла",
     },
   ],
@@ -146,7 +146,7 @@ let data = {
     { task: ["2+1*2"], answers: [2, 10, 8, 4], rightAnswer: "4" },
     { task: ["2+1*2"], answers: [2, 10, 8, 4], rightAnswer: "4" },
     { task: ["2+1*2"], answers: [2, 10, 8, 4], rightAnswer: "4" },
-    { task: ["2+1*2"], answers: [2, 16, 8, 4], rightAnswer: "4" },
+    { task: ["2+1*2"], answers: [2, 10, 8, 4], rightAnswer: "4" },
   ],
   hard: [
     { task: ["2+2*2"], answers: [2, 10, 8, 6], rightAnswer: "6" },
@@ -200,7 +200,7 @@ function gamePageNavigation() {
   // TURBO NEW
   let quitButtons = document.querySelectorAll(".settings__quit-settings");
 
-  // TURBO NEW 
+  // TURBO NEW
   let aboutScreen = document.querySelector(".about");
   let aboutButton = document.querySelector(".help-buttons__button-questions");
 
@@ -245,23 +245,20 @@ function gamePageNavigation() {
     }
   });
 
-  // start game button
   startGameButton.addEventListener("click", startGame);
 
   // open/scose map in game
   openMapButton.addEventListener("click", openMap);
   closeMapButton.addEventListener("click", closeMap);
 
-  
   settingsButton.addEventListener("click", goToSettings);
   // TURBO NEW
-  quitButtons.forEach(button => {
-    button.addEventListener("click", returnToMenu)
-  })
+  quitButtons.forEach((button) => {
+    button.addEventListener("click", returnToMenu);
+  });
 
   // TURBO NEW
   aboutButton.addEventListener("click", goToAbout);
-
 
   // functions=================================
   function chooseComplexity() {
@@ -275,14 +272,13 @@ function gamePageNavigation() {
         }
       });
     });
-    
+
     function clearAllChoosedComplexity() {
       complexityButtons.forEach((item) => {
         item.classList.remove("active");
       });
     }
   }
-  // get current game settings
   function getSettings() {
     let hardSettingsItems = document.querySelectorAll(".hard-block__button");
     let complexity;
@@ -309,7 +305,7 @@ function gamePageNavigation() {
     location.hash = "#settings";
   }
   function goToAbout() {
-    location.hash = "#about"
+    location.hash = "#about";
   }
   function returnToMenu() {
     location.hash = "#mainscreen";
@@ -330,7 +326,8 @@ function gamePageNavigation() {
     // open page
     location.hash = "#game";
     complexityLvl = getSettings();
-    let levelsData;
+
+    let levelsData = data.easy;
     if (complexityLvl == "easy") {
       levelsData = data.easy;
     } else if (complexityLvl == "medium") {
@@ -480,7 +477,7 @@ function gamePageNavigation() {
         let keyItem = document.createElement("div");
         keyItem.classList.add("key-img");
         let keyItemImg = document.createElement("img");
-        keyItemImg.setAttribute("src", "img/key.svg");
+        keyItemImg.setAttribute("src", "/img/key.svg");
         keyItem.appendChild(keyItemImg);
         thisItem.appendChild(keyItem);
         thisItem.classList.add("filled");
@@ -490,7 +487,7 @@ function gamePageNavigation() {
 
     checkWin();
   }
-  
+
   function checkWin() {
     if (keysNumber >= 4 && personProgress >= 14) {
       // animation of win
@@ -619,7 +616,6 @@ function closeLevelPopup() {
     gameLevelPopup.classList.add("game-level__popup-hidden");
   }
 }
-// open popup that you've won that game
 function openWinGamePopup() {
   let gameLevelPopup = document.querySelector(".game-level__popup-wrapper");
   let gameLevelPopupBody = document.querySelector(".game-level__popup");
@@ -732,7 +728,7 @@ document.addEventListener("click", (event) => {
 // changing track on screen changing
 
 let isVolumeInputGot = false;
-// when player has changed a location
+
 window.addEventListener("hashchange", function (e) {
   if (location.hash == "#mainscreen") {
     menuMusic.play();
@@ -742,7 +738,7 @@ window.addEventListener("hashchange", function (e) {
     menuMusic.pause();
   } else if (location.hash == "#about") {
     // TURBO NEW
-    // without empty block it redirects to settings 
+    // without empty block it redirects to settings
   } else if ((this.location.hash = "#settings")) {
     if (!isVolumeInputGot) {
       getVolumeInput();
@@ -758,23 +754,3 @@ function getVolumeInput() {
     levelMusic.volume = e.target.value / 100;
   });
 }
-
-// canvas
-
-// const canvasX = canvas.getBoundingClientRect().x;
-// const canvasY = canvas.getBoundingClientRect().y;
-
-// for (let levelIndex = 0; levelIndex < levels.length; levelIndex++) {
-//   const level = levels[levelIndex];
-//   const x = level.getBoundingClientRect().x - canvasX;
-//   const y = (level.getBoundingClientRect().y - canvasY) / 2 - 70;
-//   console.log(x, y)
-
-//   ctx.beginPath();
-//   ctx.moveTo(x, y);
-
-// flsLevelsControll.lockLvl(personProgress);
-// flsLevelsControll.unlockLvl(personProgress, levelsArr.FirstLvl);
-// personProgress = flsLevelsControll.clickLvl(personProgress, data, levelsArr);
-// // открыть ключи
-// flsSetTasks.setTaskstToItems(data);
