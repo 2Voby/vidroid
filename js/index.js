@@ -453,12 +453,16 @@ function gamePageNavigation() {
         } else {
           if (complexityLvl == "easy") {
             tryCounter++;
+            console.log("неправильна відповідь");
+            openIncorrectAnswerPopup("Неправильна відповідь", false);
+
             if (tryCounter >= 2) {
               openIncorrectAnswerPopup();
             }
           } else {
             tryCounter++;
             openIncorrectAnswerPopup();
+            console.log("неправильна відповідь");
           }
         }
       }
@@ -560,12 +564,22 @@ function gamePageNavigation() {
     highlightRoots();
   }
 
-  function openIncorrectAnswerPopup() {
+  function openIncorrectAnswerPopup(handleText = null, closeGame = true) {
     let gameLevelPopup = document.querySelector(".game-level__popup-wrapper");
     let gameLevelPopupBody = document.querySelector(".game-level__popup");
     let gameLevelPopupTitle = gameLevelPopup.querySelector(
       ".game-level__popup-title"
     );
+
+    // remove old buttons
+    let existingButtons = gameLevelPopupBody.querySelectorAll(
+      ".game-level__popup-button"
+    );
+    existingButtons.forEach((button) => {
+      if (button) {
+        button.remove();
+      }
+    });
 
     //create button
     let gameLevelPopupButton = document.createElement("a");
@@ -575,19 +589,28 @@ function gamePageNavigation() {
     );
     gameLevelPopupButton.innerHTML = "Start over";
     gameLevelPopupBody.appendChild(gameLevelPopupButton);
+    gameLevelPopupTitle.innerHTML = "ХЕ-хе-хе, в тебе не вийшло мене взламати";
 
     // add text to popup
-    gameLevelPopupTitle.innerHTML = "ХЕ-хе-хе, в тебе не вийшло мене взламати";
+    if (handleText) {
+      gameLevelPopupTitle.innerHTML = handleText;
+    }
 
     // open popup
     if (gameLevelPopup.classList.contains("game-level__popup-hidden")) {
       gameLevelPopup.classList.remove("game-level__popup-hidden");
     }
     // click the button
-    gameLevelPopupButton.onclick = () => {
-      resetGame();
-      closeLevelPopup();
-    };
+    if (closeGame) {
+      gameLevelPopupButton.onclick = () => {
+        resetGame();
+        closeLevelPopup();
+      };
+    } else if (!closeGame) {
+      gameLevelPopupButton.onclick = () => {
+        closeLevelPopup();
+      };
+    }
   }
 }
 function lockLvl() {
@@ -702,6 +725,22 @@ function resetGame() {
         item.classList.remove("map__root-completed");
       }
     });
+  }
+  // reset game page
+  let gamePage = document.querySelector(".game-body__game-level");
+  if (gamePage) {
+    let title = gamePage.querySelector(".game-level__title");
+    let image = gamePage.querySelector(".game-level__title img");
+    let answersBlock = gamePage.querySelector(".game-level__answers-block");
+    if (title) {
+      title.innerHTML = "";
+    }
+    if (image) {
+      image.src = "";
+    }
+    if (answersBlock) {
+      answersBlock.innerHTML = "";
+    }
   }
 }
 
